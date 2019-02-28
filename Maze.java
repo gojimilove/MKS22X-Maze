@@ -18,18 +18,39 @@ public class Maze{
     3. When the file is not found OR the file is invalid (not exactly 1 E and 1 S) then:
        throw a FileNotFoundException or IllegalStateException
   */
-  public Maze(String filename) throws FileNotFoundException{
-    File f = new File(filename);
+  public Maze() throws FileNotFoundException{
+    File f = new File("Maze1.txt");
+    Scanner n = new Scanner(f);
+    String test = n.nextLine();
+    int cols = test.length();
+    int rows = 1;
+    while (n.hasNextLine()) {
+      String line = n.nextLine();
+      rows++;
+    }
+    maze = new char[rows][cols];
+
     Scanner s = new Scanner(f);
+    int r = 0;
     while (s.hasNextLine()) {
       String line = s.nextLine();
-      System.out.println(line);
+      for (int i = 0; i < line.length(); i++) {
+        maze[r][i] = line.charAt(i);
+      }
+      r++;
     }
     animate = false;
   }
 
   public String toString() {
-
+    String s = "";
+    for (int i = 0; i < maze.length; i++) {
+      for (int j = 0; j < maze[0].length; j++) {
+        s += maze[i][j];
+      }
+      s += "\n";
+    }
+    return s;
   }
 
   private void wait(int millis){
