@@ -18,8 +18,8 @@ public class Maze{
     3. When the file is not found OR the file is invalid (not exactly 1 E and 1 S) then:
        throw a FileNotFoundException or IllegalStateException
   */
-  public Maze() throws FileNotFoundException{
-    File f = new File("Maze1.txt");
+  public Maze(String filename) throws FileNotFoundException{
+    File f = new File(filename);
     Scanner n = new Scanner(f);
     String test = n.nextLine();
     int cols = test.length();
@@ -76,6 +76,7 @@ public class Maze{
     Since the constructor exits when the file is not found or is missing an E or S, we can assume it exists.
   */
   public int solve(){
+  	return -1;
     //find the location of the S.
 
     //erase the S
