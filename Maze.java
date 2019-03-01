@@ -76,13 +76,13 @@ public class Maze{
     Since the constructor exits when the file is not found or is missing an E or S, we can assume it exists.
   */
   public int solve(){
-  	return -1;
     //find the location of the S.
 
     //erase the S
 
     //and start solving at the location of the s.
     //return solve(???,???);
+    return -1;
   }
 
   /*
