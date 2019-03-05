@@ -70,6 +70,17 @@ public class Maze{
     System.out.println("\033[2J\033[1;1H");
   }
 
+  public boolean putCursor(int r, int c) {
+  	if (maze[r][c] != ' ') return false;
+  	else maze[r][c] = '@';
+  	return true;
+  }
+
+  public boolean blockSpace(int r, int c) {
+  	if (maze[r][c] != '@') return false;
+  	else maze[r][c] = '.';
+  	return true;
+  }
 
   /*Wrapper Solve Function returns the helper function
     Note the helper function has the same name, but different parameters.
@@ -89,9 +100,9 @@ public class Maze{
   	}
   	System.out.println("S: ["+sRow+", "+sCol+"]");
     //erase the S
-
+    maze[sRow][sCol] = '@';
     //and start solving at the location of the s.
-    //return solve(???,???);
+    //return solve(sRow,sCol);
     return -1;
   }
 
