@@ -77,7 +77,17 @@ public class Maze{
   */
   public int solve(){
     //find the location of the S.
-
+    int sRow = 0;
+    int sCol = 0;
+  	for (int i = 0; i < maze.length; i++) {
+  		for (int j = 0; j < maze[i].length; j++) {
+  			if (maze[i][j] == 'S') {
+  				sRow = i;
+  				sCol = j;
+  			}
+  		}
+  	}
+  	System.out.println("S: ["+sRow+", "+sCol+"]");
     //erase the S
 
     //and start solving at the location of the s.
