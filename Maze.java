@@ -70,16 +70,9 @@ public class Maze{
     System.out.println("\033[2J\033[1;1H");
   }
 
+  //tests to see if you can put an '@' in the specified place or if it reaches the end
   public boolean putCursor(int r, int c) {
-  	if (maze[r][c] != ' ') return false;
-  	else maze[r][c] = '@';
-  	return true;
-  }
-
-  public boolean blockSpace(int r, int c) {
-  	if (maze[r][c] != '@') return false;
-  	else maze[r][c] = '.';
-  	return true;
+    return (maze[r][c] == ' ' || maze[r][c] == 'E');
   }
 
   /*Wrapper Solve Function returns the helper function
@@ -98,12 +91,11 @@ public class Maze{
   			}
   		}
   	}
-  	System.out.println("S: ["+sRow+", "+sCol+"]");
+  	//System.out.println("S: ["+sRow+", "+sCol+"]");
     //erase the S
     maze[sRow][sCol] = '@';
     //and start solving at the location of the s.
     return solve(sRow,sCol);
-    //return -1;
   }
 
   /*
@@ -122,32 +114,29 @@ public class Maze{
   private int solve(int row, int col){ //you can add more parameters since this is private
   	int[] rowMoves = new int[]{-1, 0, 1, 0};
   	int[] colMoves = new int[]{0, 1, 0, -1};
-
-    if (maze[row][col] == 'E') {
-      System.out.println("STOP");
-      return 1;
-    }
+    int count = 0;
 
     //automatic animation! You are welcome.
     if(animate){
-      //clearTerminal();
+      clearTerminal();
       System.out.println(this);
       wait(20);
     }
-    for (int i = 0; i < 4; i++) {
-    	if (putCursor(row+rowMoves[i], col+colMoves[i])) {
-        //System.out.println("yay");
-        solve(row+rowMoves[i],col+colMoves[i]);
-      }
-      // else {
-      //   System.out.println("nay");
-        
-      // }
+    //base case
+    //System.out.println("Location: ["+row+", "+col+"]");
+    if (maze[row][col] == 'E') {
+      setAnimate(false);
+      return count;
     }
-    blockSpace(row,col);
-
-
+    maze[row][col] = '@';
     //COMPLETE SOLVE
+    for (int i = 0; i < 4; i++) {
+      if (putCursor(row+rowMoves[i], col+colMoves[i])) {
+        count = solve(row+rowMoves[i],col+colMoves[i]);
+        if (count != -1) return count+1;
+      }
+    }
+    maze[row][col] = '.';
     return -1; //so it compiles
   }
 
