@@ -102,8 +102,8 @@ public class Maze{
     //erase the S
     maze[sRow][sCol] = '@';
     //and start solving at the location of the s.
-    //return solve(sRow,sCol);
-    return -1;
+    return solve(sRow,sCol);
+    //return -1;
   }
 
   /*
@@ -120,13 +120,32 @@ public class Maze{
     All visited spots that are part of the solution are changed to '@'
   */
   private int solve(int row, int col){ //you can add more parameters since this is private
+  	int[] rowMoves = new int[]{-1, 0, 1, 0};
+  	int[] colMoves = new int[]{0, 1, 0, -1};
+
+    if (maze[row][col] == 'E') {
+      System.out.println("STOP");
+      return 1;
+    }
 
     //automatic animation! You are welcome.
     if(animate){
-      clearTerminal();
+      //clearTerminal();
       System.out.println(this);
       wait(20);
     }
+    for (int i = 0; i < 4; i++) {
+    	if (putCursor(row+rowMoves[i], col+colMoves[i])) {
+        //System.out.println("yay");
+        solve(row+rowMoves[i],col+colMoves[i]);
+      }
+      // else {
+      //   System.out.println("nay");
+        
+      // }
+    }
+    blockSpace(row,col);
+
 
     //COMPLETE SOLVE
     return -1; //so it compiles
